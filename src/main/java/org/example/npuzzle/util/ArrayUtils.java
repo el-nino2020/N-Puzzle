@@ -8,7 +8,7 @@ public class ArrayUtils {
     private ArrayUtils() {
     }
 
-    public static int[][] copy2DIntArray(int[][] arr) {
+    public static int[][] copyArray(int[][] arr) {
         int[][] ans = new int[arr.length][];
 
         for (int i = 0; i < ans.length; i++) {
@@ -18,7 +18,7 @@ public class ArrayUtils {
         return ans;
     }
 
-    public static String arrayToString(int[][] arr) {
+    public static String toString(int[][] arr) {
         StringBuilder ans = new StringBuilder();
 
         for (int[] row : arr) {

@@ -3,7 +3,7 @@ package org.example.npuzzle.strategy.impl;
 
 import org.example.npuzzle.entity.State;
 import org.example.npuzzle.enums.Direction;
-import org.example.npuzzle.strategy.NPuzzleGame;
+import org.example.npuzzle.strategy.NPuzzle;
 import org.example.npuzzle.util.ArrayUtils;
 
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.util.ArrayDeque;
 
 import static org.example.npuzzle.enums.Direction.*;
 
-public class DFS extends NPuzzleGame {
+public class DFS extends NPuzzle {
     @Override
     protected State solveGame(State initialState) {
         int m = initialState.getM(), n = initialState.getN();
@@ -45,8 +45,11 @@ public class DFS extends NPuzzleGame {
                     nextState.setLastDirection(nextDir);
                     ArrayUtils.swap(nextState.getGrid(), x, y, dx + x, dy + y);
                     Point point = nextState.getPoint();
-                    point.x = x + dx;
-                    point.y = y + dy;
+                    point.x += dx;
+                    point.y += dy;
+
+                    if (isVisited(nextState)) continue;
+                    else setStateVisited(nextState);
 
                     stk.addLast(nextState);
                 }

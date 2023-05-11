@@ -22,6 +22,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class State implements GlobalConstants {
+    /**
+     * 记录一共调用过多少次 fork()方法， <br/>
+     * 该字段可以用来评定某一种算法的优劣与否 <br/>
+     * 考虑到使用多线程同时运行不同算法，使用 ThreadLocal存放某一算法的fork次数
+     *
+     * @see State#fork()
+     */
+    public static final ThreadLocal<Long> forkedTimes = ThreadLocal.withInitial(() -> 0L);
 
     /**
      * 将puzzle表示为一个二维数组
@@ -53,13 +61,6 @@ public class State implements GlobalConstants {
      */
     private Point point;
 
-    /**
-     * 记录一共调用过多少次 fork()方法， <br/>
-     * 该字段可以用来评定某一种算法的优劣与否
-     *
-     * @see State#fork()
-     */
-    private long forkedTimes;
 
     /**
      * 创建一个子节点, 将子节点的parent字段指向自己，<br/>
@@ -69,15 +70,14 @@ public class State implements GlobalConstants {
      * @return 子节点
      */
     public State fork() {
-        this.forkedTimes++;
-
+        forkedTimes.set(forkedTimes.get() + 1);
         State ans = new State();
 
         ans.parent = this;
-        ans.grid = ArrayUtils.copy2DIntArray(this.grid);
+        ans.grid = ArrayUtils.copyArray(this.grid);
+        ans.m = this.m;
+        ans.n = this.n;
         ans.point = new Point(this.point.x, this.point.y);
-        ans.forkedTimes = this.forkedTimes;
-
         ans.lastDirection = null;
 
         return ans;
@@ -106,7 +106,7 @@ public class State implements GlobalConstants {
     /**
      * 追溯游戏开始状态到目前状态 空格的移动路径
      *
-     * @return
+     * @return path
      */
     public List<String> tracePath() {
         ArrayList<String> ans = new ArrayList<>();
@@ -123,5 +123,14 @@ public class State implements GlobalConstants {
         return ans;
     }
 
-
+    @Override
+    public String toString() {
+        return "State{" +
+                "lastDirection=" + lastDirection +
+                ", forkedTimes=" + forkedTimes.get() +
+                "===================================" +
+                ArrayUtils.toString(grid) +
+                "===================================" +
+                '}';
+    }
 }
