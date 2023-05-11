@@ -41,12 +41,12 @@ public class NPuzzleApplication implements GlobalConstants {
                     if (endState != null) {
                         // path 可能非常长，不适合全部打印出来
                         System.out.println("Solution Size: " + endState.tracePath().size());
-                        System.out.println("End State (just for check): ");
-                        System.out.println(ArrayUtils.toString(endState.getGrid()));
+//                        System.out.println("End State (just for check): ");
+//                        System.out.println(ArrayUtils.toString(endState.getGrid()));
                     } else {
                         System.out.println("NO SOLUTION");
                     }
-                    System.out.println("==================================================");
+//                    System.out.println("==================================================");
                 }
             } catch (InstantiationException | IllegalAccessException e) {
                 throw new RuntimeException(e);

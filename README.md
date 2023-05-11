@@ -15,4 +15,10 @@ The puzzle consists of **one empty space** where the tiles can be moved and thus
 
 [Single-Agent Search - Sliding Tile Puzzle Domain](https://www.movingai.com/SAS/STP/)
 
+## 算法
 
+### Depth First Search
+
+### Breath First Search
+
+### A-star
