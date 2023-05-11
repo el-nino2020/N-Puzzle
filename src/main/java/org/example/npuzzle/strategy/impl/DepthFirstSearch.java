@@ -11,7 +11,7 @@ import java.util.ArrayDeque;
 
 import static org.example.npuzzle.enums.Direction.*;
 
-public class DFS extends NPuzzle {
+public class DepthFirstSearch extends NPuzzle {
     @Override
     protected State solveGame(State initialState) {
         int m = initialState.getM(), n = initialState.getN();
@@ -20,7 +20,7 @@ public class DFS extends NPuzzle {
         stk.add(initialState);
 
         while (!stk.isEmpty()) {
-            State state = stk.pollFirst();
+            State state = stk.pollLast();
 
             if (state.isGoal()) {
                 return state;
