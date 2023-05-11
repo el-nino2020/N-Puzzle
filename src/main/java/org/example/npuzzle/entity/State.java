@@ -6,9 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.npuzzle.constants.GlobalConstants;
+import org.example.npuzzle.enums.Direction;
+import org.example.npuzzle.util.ArrayUtils;
 
 import java.awt.*;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * PUZZLE 状态
@@ -18,10 +22,21 @@ import java.util.Arrays;
 @NoArgsConstructor
 @AllArgsConstructor
 public class State implements GlobalConstants {
+
     /**
      * 将puzzle表示为一个二维数组
      */
     private int[][] grid;
+
+    /**
+     * grid有m行
+     */
+    private int m;
+
+    /**
+     * grid有n列
+     */
+    private int n;
 
     /**
      * parent state
@@ -29,39 +44,84 @@ public class State implements GlobalConstants {
     private State parent;
 
     /**
-     * 空格的坐标
+     * 记录  parent state 到 current state 空格的移动方向
+     */
+    private Direction lastDirection;
+
+    /**
+     * 空格的坐标，grid中使用数字 0 表示该空格
      */
     private Point point;
 
     /**
-     * 创建一个子节点, 将子节点的parent字段指向自己，深拷贝其他字段
+     * 记录一共调用过多少次 fork()方法， <br/>
+     * 该字段可以用来评定某一种算法的优劣与否
+     *
+     * @see State#fork()
+     */
+    private long forkedTimes;
+
+    /**
+     * 创建一个子节点, 将子节点的parent字段指向自己，<br/>
+     * 深拷贝其他字段，例外如下：<br/>
+     * lastDirection = null, 该字段需要调用者手动处理 <br/>
      *
      * @return 子节点
      */
     public State fork() {
+        this.forkedTimes++;
+
         State ans = new State();
 
         ans.parent = this;
-
-        ans.grid = new int[this.grid.length][];
-        for (int i = 0; i < grid.length; i++) {
-            ans.grid[i] = Arrays.copyOf(this.grid[i], this.grid[i].length);
-        }
-
+        ans.grid = ArrayUtils.copy2DIntArray(this.grid);
         ans.point = new Point(this.point.x, this.point.y);
+        ans.forkedTimes = this.forkedTimes;
+
+        ans.lastDirection = null;
 
         return ans;
     }
 
-    public String gridToString() {
-        StringBuilder ans = new StringBuilder(PUZZLE_SIZE << 2);
-
-        for (int[] row : grid) {
-            ans.append(Arrays.toString(row));
-            ans.append("\n");
+    /**
+     * 当前状态是否已经满足 N-puzzle 的终止条件
+     *
+     * @return boolean
+     */
+    public final boolean isGoal() {
+        for (int i = 0, k = 1; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++, k++) {
+                if (i == grid.length - 1 && j == grid[i].length - 1) {
+                    return grid[i][j] == 0;
+                }
+                if (grid[i][j] != k) {
+                    return false;
+                }
+            }
         }
 
-        return ans.toString();
+        return false;
     }
+
+    /**
+     * 追溯游戏开始状态到目前状态 空格的移动路径
+     *
+     * @return
+     */
+    public List<String> tracePath() {
+        ArrayList<String> ans = new ArrayList<>();
+
+        State ptr = this;
+        while (ptr.lastDirection != null) {
+            ans.add(ptr.lastDirection.name());
+            ptr = ptr.parent;
+        }
+
+        // 反向追溯，因而要reverse
+        Collections.reverse(ans);
+
+        return ans;
+    }
+
 
 }
