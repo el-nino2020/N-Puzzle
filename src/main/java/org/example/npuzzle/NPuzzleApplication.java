@@ -8,9 +8,11 @@ import org.example.npuzzle.entity.State;
 import org.example.npuzzle.strategy.NPuzzle;
 import org.example.npuzzle.strategy.impl.BreathFirstSearch;
 import org.example.npuzzle.strategy.impl.DepthFirstSearch;
-import org.example.npuzzle.util.ArrayUtils;
 
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class NPuzzleApplication implements GlobalConstants {
 
@@ -48,27 +50,38 @@ public class NPuzzleApplication implements GlobalConstants {
                     }
 //                    System.out.println("==================================================");
                 }
+                latch.countDown();
             } catch (InstantiationException | IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
-    public static void main(String[] args) {
-        // 初始化
-        NPuzzle.initRandomGame();
+    // 用于阻塞主线程shutdown线程池的操作
+    private static CountDownLatch latch;
 
+    public static void initLatch(int count) {
+        latch = new CountDownLatch(count);
+    }
+
+    public static void main(String[] args) throws InterruptedException {
         List<Class<? extends NPuzzle>> algorithms = ImmutableList.of(
                 DepthFirstSearch.class,
                 BreathFirstSearch.class);
 
+
+        // 初始化
+        NPuzzle.initRandomGame();
+        initLatch(algorithms.size());
         // 让每个算法都在一个独立的线程中运行，用于统一运行、比较
-//        ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
         for (Class<? extends NPuzzle> algorithm : algorithms) {
-//            threadPool.submit(new RunAndStatisticsJob(algorithm));
-            new RunAndStatisticsJob(algorithm).run();
+            threadPool.submit(new RunAndStatisticsJob(algorithm));
         }
+
+        latch.await();
+        threadPool.shutdown();
     }
 
 }

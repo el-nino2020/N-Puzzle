@@ -11,7 +11,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -59,8 +58,6 @@ public abstract class NPuzzle implements GlobalConstants {
 
     /**
      * 初始化本轮 N-Puzzle，所有算法将基于这一次初始化的结果
-     *
-     * @return
      */
     public synchronized static void initRandomGame() {
         State.forkedTimes.set(0L);

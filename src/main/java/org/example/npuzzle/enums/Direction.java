@@ -16,7 +16,7 @@ public enum Direction {
      * 返回 direction 相对的方向
      *
      * @param direction
-     * @return
+     * @return 相对的方向
      */
     public static Direction reverseDirection(Direction direction) {
         switch (direction) {

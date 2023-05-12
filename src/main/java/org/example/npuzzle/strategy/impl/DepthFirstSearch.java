@@ -9,7 +9,6 @@ import org.example.npuzzle.util.ArrayUtils;
 import java.awt.*;
 import java.util.ArrayDeque;
 
-import static org.example.npuzzle.enums.Direction.reverseDirection;
 
 public class DepthFirstSearch extends NPuzzle {
     @Override
@@ -29,14 +28,8 @@ public class DepthFirstSearch extends NPuzzle {
             int x = state.getPoint().x;
             int y = state.getPoint().y;
 
-            Direction reverseDir = state.getLastDirection() == null ? null :
-                    reverseDirection(state.getLastDirection());
-
             for (Direction nextDir : Direction.values()) {
                 int dx = nextDir.dx, dy = nextDir.dy;
-
-                // 没必要往回移动
-                if (nextDir.equals(reverseDir)) continue;
 
                 // 下一步在边界范围内
                 if (0 <= dx + x && dx + x < m && 0 <= dy + y && dy + y < n) {

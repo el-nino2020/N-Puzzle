@@ -8,7 +8,7 @@ public class RandomUtils {
     }
 
     public static Random currentTimeRandom() {
-        return new Random(System.currentTimeMillis());
+        return new Random(System.nanoTime());
     }
 
 }
