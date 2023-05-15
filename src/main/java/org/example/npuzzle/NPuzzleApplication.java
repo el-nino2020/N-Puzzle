@@ -38,7 +38,8 @@ public class NPuzzleApplication implements GlobalConstants {
                 synchronized (NPuzzleApplication.class) {
                     System.out.println("==================================================");
                     System.out.println(algorithmName);
-                    System.out.println("Total State checked: " + State.forkedTimes.get());
+//                    System.out.println("Total State checked: " + State.forkedTimes.get());
+                    System.out.println("Total State checked: " + NPuzzle.stateCount());
                     // 不一定有解
                     if (endState != null) {
                         // path 可能非常长，不适合全部打印出来

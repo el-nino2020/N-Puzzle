@@ -26,16 +26,31 @@ public abstract class NPuzzle implements GlobalConstants {
     private static volatile State initialState;
 
     /**
-     * 记录先前访问过的状态
+     * 记录执行某算法时先前访问过的状态
      */
     private static final ThreadLocal<Set<String>> visitedState = new ThreadLocal<>();
 
+    /**
+     * 标记当前线程执行某算法时，state已经被创建过了
+     */
     protected final void setStateVisited(State state) {
         visitedState.get().add(ArrayUtils.toString(state.getGrid()));
     }
 
+    /**
+     * 当前线程在执行该算法期间，state是否已经被创建过了
+     * @return boolean
+     */
     protected final boolean isVisited(State state) {
         return visitedState.get().contains(ArrayUtils.toString(state.getGrid()));
+    }
+
+    /**
+     * 返回当前线程在执行某个算法时创建的不同 state 的个数
+     * @return 当前线程在执行某个算法时创建的不同 state 的个数
+     */
+    public static int stateCount() {
+        return visitedState.get().size();
     }
 
     public final State runGame() {
