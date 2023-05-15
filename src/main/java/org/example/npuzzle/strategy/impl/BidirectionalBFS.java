@@ -83,7 +83,7 @@ public class BidirectionalBFS extends NPuzzle {
     }
 
     /**
-     * create an e goal state based on the initial state
+     * create a goal state based on the initial state
      */
     public State createGoalState(State initialState) {
         State ans = initialState.fork();
@@ -127,7 +127,7 @@ public class BidirectionalBFS extends NPuzzle {
         endQueue.addLast(goalState);
         setStateVisited(goalState, endVisitedStates);
 
-        while ((!startQueue.isEmpty()) & (!endQueue.isEmpty())) {
+        while ((!startQueue.isEmpty()) && (!endQueue.isEmpty())) {
             State state1 = BFSAdvance(startQueue, startVisitedStates);
             State state2 = BFSAdvance(endQueue, endVisitedStates);
 
@@ -150,8 +150,7 @@ public class BidirectionalBFS extends NPuzzle {
                     State next = state2.getParent();
                     state2.setParent(prev);
                     state2.setLastDirection(Direction.calculateDirection(prev.getPoint(), state2.getPoint()));
-
-                    Objects.requireNonNull(state2.getLastDirection(), "实现有问题");
+//                    Objects.requireNonNull(state2.getLastDirection(), "实现有问题");
 
                     prev = state2;
                     state2 = next;

@@ -72,7 +72,8 @@ public class NPuzzleApplication implements GlobalConstants {
                 ManhattanDistanceAStar.class,
                 HammingDistanceAStar.class,
                 LinearConflictWithManhattanAStar.class,
-                EuclideanDistanceAStar.class
+                EuclideanDistanceAStar.class,
+                BidirectionalBFS.class
         );
 
 

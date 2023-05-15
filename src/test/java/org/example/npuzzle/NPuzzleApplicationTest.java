@@ -6,6 +6,7 @@ import org.example.npuzzle.strategy.impl.BidirectionalBFS;
 
 import java.awt.*;
 import java.lang.reflect.Field;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -16,17 +17,23 @@ public class NPuzzleApplicationTest {
      */
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
         NPuzzle algorithm = new BidirectionalBFS();
-        int[][] grid = new int[][]{
-                {1, 7, 0},
-                {8, 4, 5},
-                {2, 3, 6},
-        };
-        Point point = new Point();
+        boolean customGame = false;
 
-        Class<NPuzzle> cls = NPuzzle.class;
-        Field initialState = cls.getDeclaredField("initialState");
-        initialState.setAccessible(true);
-        initialState.set(null, new State(grid, null, null, point));
+        if (customGame) {
+            int[][] grid = new int[][]{
+                    {1, 7, 0},
+                    {8, 4, 5},
+                    {2, 3, 6},
+            };
+            Point point = new Point(0, 2);
+
+            Class<NPuzzle> cls = NPuzzle.class;
+            Field initialState = cls.getDeclaredField("initialState");
+            initialState.setAccessible(true);
+            initialState.set(null, new State(grid, null, null, point));
+        } else {
+            NPuzzle.initRandomGame();
+        }
 
         State state = algorithm.runGame();
 
@@ -34,7 +41,9 @@ public class NPuzzleApplicationTest {
         if (state == null) {
             System.out.println("no solution");
         } else {
-            System.out.println(state.tracePath());
+            List<String> path = state.tracePath();
+            System.out.println("Solution Size: " + path.size());
+            System.out.println(path);
         }
     }
 }
