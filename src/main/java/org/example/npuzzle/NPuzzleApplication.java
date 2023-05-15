@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import org.example.npuzzle.constants.GlobalConstants;
 import org.example.npuzzle.entity.State;
 import org.example.npuzzle.strategy.NPuzzle;
-import org.example.npuzzle.strategy.impl.BreathFirstSearch;
-import org.example.npuzzle.strategy.impl.DepthFirstSearch;
-import org.example.npuzzle.strategy.impl.HammingDistanceAStar;
-import org.example.npuzzle.strategy.impl.ManhattanDistanceAStar;
+import org.example.npuzzle.strategy.impl.*;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -73,7 +70,8 @@ public class NPuzzleApplication implements GlobalConstants {
                 DepthFirstSearch.class,
                 BreathFirstSearch.class,
                 ManhattanDistanceAStar.class,
-                HammingDistanceAStar.class);
+                HammingDistanceAStar.class,
+                LinearConflictWithManhattanAStar.class);
 
 
         // 初始化

@@ -40,4 +40,6 @@ The puzzle consists of **one empty space** where the tiles can be moved and thus
 
 #### Manhattan Distance
 
-#### 
+#### Hamming Distance
+
+#### Linear Conflict + Manhattan Distance 
