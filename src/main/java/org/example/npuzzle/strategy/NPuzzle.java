@@ -74,7 +74,7 @@ public abstract class NPuzzle implements GlobalConstants {
     protected abstract State solveGame(State initialState);
 
     /**
-     * 初始化本轮 N-Puzzle，所有算法将基于这一次初始化的结果
+     * 随机初始化本轮 N-Puzzle，所有算法将基于这一次初始化的结果
      */
     public synchronized static void initRandomGame() {
         State.forkedTimes.set(0L);

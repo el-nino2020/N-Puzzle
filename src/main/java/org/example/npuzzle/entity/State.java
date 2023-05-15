@@ -121,14 +121,4 @@ public class State implements GlobalConstants {
         return ans;
     }
 
-    @Override
-    public String toString() {
-        return "State{" +
-                "lastDirection=" + lastDirection +
-                ", forkedTimes=" + forkedTimes.get() +
-                "===================================" +
-                ArrayUtils.toString(grid) +
-                "===================================" +
-                '}';
-    }
 }

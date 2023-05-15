@@ -2,6 +2,8 @@ package org.example.npuzzle.enums;
 
 import lombok.AllArgsConstructor;
 
+import java.awt.*;
+
 @AllArgsConstructor
 public enum Direction {
     UP(-1, 0),
@@ -30,5 +32,17 @@ public enum Direction {
                 return LEFT;
         }
         throw new RuntimeException("UNREACHABLE");
+    }
+
+    public static Direction calculateDirection(Point from, Point to) {
+        if (from.x == to.x) {
+            if (from.y - 1 == to.y) return LEFT;
+            if (from.y + 1 == to.y) return RIGHT;
+        }
+        if (from.y == to.y) {
+            if (from.x - 1 == to.x) return UP;
+            if (from.x + 1 == to.x) return DOWN;
+        }
+        return null;
     }
 }
