@@ -8,6 +8,8 @@ import org.example.npuzzle.entity.State;
 import org.example.npuzzle.strategy.NPuzzle;
 import org.example.npuzzle.strategy.impl.BreathFirstSearch;
 import org.example.npuzzle.strategy.impl.DepthFirstSearch;
+import org.example.npuzzle.strategy.impl.HammingDistanceAStar;
+import org.example.npuzzle.strategy.impl.ManhattanDistanceAStar;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -43,6 +45,7 @@ public class NPuzzleApplication implements GlobalConstants {
                     // 不一定有解
                     if (endState != null) {
                         // path 可能非常长，不适合全部打印出来
+//                        System.out.println("Solution: " + endState.tracePath());
                         System.out.println("Solution Size: " + endState.tracePath().size());
 //                        System.out.println("End State (just for check): ");
 //                        System.out.println(ArrayUtils.toString(endState.getGrid()));
@@ -68,7 +71,9 @@ public class NPuzzleApplication implements GlobalConstants {
     public static void main(String[] args) throws InterruptedException {
         List<Class<? extends NPuzzle>> algorithms = ImmutableList.of(
                 DepthFirstSearch.class,
-                BreathFirstSearch.class);
+                BreathFirstSearch.class,
+                ManhattanDistanceAStar.class,
+                HammingDistanceAStar.class);
 
 
         // 初始化

@@ -1,3 +1,14 @@
+# 环境
+
+- JDK 8
+- Maven 3.8.x
+
+# 使用
+
+- 程序入口：NPuzzleApplication
+- 目前是随机生成一个长度为`GlobalConstants#PUZZLE_ROW_COUNT`、宽度为`GlobalConstants#PUZZLE_COLUMN_COUNT` （仅有的2个可变的配置参数）的N-puzzle实例，然后让每个算法执行这个实例，看看各个算法的效果
+- 之后考虑实现自定义 N-puzzle 实例 
+
 # N-Puzzle
 
 ## [**What is N-Puzzle?**](https://algorithmsinsight.wordpress.com/graph-theory-2/a-star-in-general/implementing-a-star-to-solve-n-puzzle/)
@@ -22,3 +33,11 @@ The puzzle consists of **one empty space** where the tiles can be moved and thus
 ### Breath First Search
 
 ### A-star
+
+参考：
+
+- https://algorithmsinsight.wordpress.com/graph-theory-2/a-star-in-general/implementing-a-star-to-solve-n-puzzle/
+
+#### Manhattan Distance
+
+#### 

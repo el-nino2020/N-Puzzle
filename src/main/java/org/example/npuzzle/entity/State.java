@@ -23,6 +23,16 @@ import java.util.List;
 @AllArgsConstructor
 public class State implements GlobalConstants {
     /**
+     * grid有m行
+     */
+    public static final int M = PUZZLE_ROW_COUNT;
+
+    /**
+     * grid有n列
+     */
+    public static final int N = PUZZLE_COLUMN_COUNT;
+
+    /**
      * 记录一共调用过多少次 fork()方法， <br/>
      * 该字段可以用来评定某一种算法的优劣与否 <br/>
      * 考虑到使用多线程同时运行不同算法，使用 ThreadLocal存放某一算法的fork次数
@@ -35,16 +45,6 @@ public class State implements GlobalConstants {
      * 将puzzle表示为一个二维数组
      */
     private int[][] grid;
-
-    /**
-     * grid有m行
-     */
-    private int m;
-
-    /**
-     * grid有n列
-     */
-    private int n;
 
     /**
      * parent state
@@ -75,8 +75,6 @@ public class State implements GlobalConstants {
 
         ans.parent = this;
         ans.grid = ArrayUtils.copyArray(this.grid);
-        ans.m = this.m;
-        ans.n = this.n;
         ans.point = new Point(this.point.x, this.point.y);
         ans.lastDirection = null;
 

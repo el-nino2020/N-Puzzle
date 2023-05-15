@@ -39,6 +39,7 @@ public abstract class NPuzzle implements GlobalConstants {
 
     /**
      * 当前线程在执行该算法期间，state是否已经被创建过了
+     *
      * @return boolean
      */
     protected final boolean isVisited(State state) {
@@ -47,6 +48,7 @@ public abstract class NPuzzle implements GlobalConstants {
 
     /**
      * 返回当前线程在执行某个算法时创建的不同 state 的个数
+     *
      * @return 当前线程在执行某个算法时创建的不同 state 的个数
      */
     public static int stateCount() {
@@ -78,16 +80,18 @@ public abstract class NPuzzle implements GlobalConstants {
         State.forkedTimes.set(0L);
         visitedState.set(new HashSet<>());
 
-        int[][] grid = new int[PUZZLE_LENGTH][PUZZLE_LENGTH];
+        int m = PUZZLE_ROW_COUNT, n = PUZZLE_COLUMN_COUNT;
 
-        Point point = new Point(currentTimeRandom().nextInt(PUZZLE_LENGTH),
-                currentTimeRandom().nextInt(PUZZLE_LENGTH));
+        int[][] grid = new int[m][n];
+
+        Point point = new Point(currentTimeRandom().nextInt(m),
+                currentTimeRandom().nextInt(n));
 
         List<Integer> list = IntStream.rangeClosed(1, PUZZLE_SIZE).boxed().collect(Collectors.toList());
         Collections.shuffle(list, currentTimeRandom());
 
-        for (int i = 0, k = 0; i < PUZZLE_LENGTH; i++) {
-            for (int j = 0; j < PUZZLE_LENGTH; j++) {
+        for (int i = 0, k = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 if (i == point.x && j == point.y)
                     continue;
                 grid[i][j] = list.get(k);
@@ -98,8 +102,7 @@ public abstract class NPuzzle implements GlobalConstants {
         System.out.println("Initial State:");
         System.out.print(ArrayUtils.toString(grid));
 
-        initialState = new State(grid, PUZZLE_LENGTH, PUZZLE_LENGTH,
-                null, null, point);
+        initialState = new State(grid, null, null, point);
     }
 
 }
