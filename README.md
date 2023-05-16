@@ -5,9 +5,44 @@
 
 # 使用
 
-- 程序入口：NPuzzleApplication
-- 目前是随机生成一个长度为`GlobalConstants#PUZZLE_ROW_COUNT`、宽度为`GlobalConstants#PUZZLE_COLUMN_COUNT` （仅有的2个可变的配置参数）的N-puzzle实例，然后让每个算法执行这个实例，看看各个算法的效果
-- 之后考虑实现自定义 N-puzzle 实例 
+- 使用 Maven 打包：
+
+- ```sh
+    mvn clean package
+    ```
+
+- 运行（Windows CMD 脚本）：
+
+- ```sh
+    .\run.bat
+    ```
+
+`run.bat`这个脚本中定义了程序运行的各种参数，参数的含义写在了脚本的注释中，这里复制一份：
+
+```sh
+:: 参数设置 ::
+:: 是否随机初始化N-puzzle实例
+set RANDOM_GAME=true
+:: 程序一次运行多少次N-puzzle实例，该值的有效性取决于 RANDOM_GAME 设置为true
+set GAME_ROUND=2
+:: 如果 RANDOM_GAME 设置为 false, 则必须提供自定义的 N-puzzle 实例文件的路径（相对或绝对）
+:: N-puzzle 实例文件 的规则如下：
+:: 1. 每个实例可视作一个矩阵，矩阵的每一行占据文本的一行，元素与元素之间使用空格隔开，每个元素都必须是自然数
+:: 2. 实例与实例之间使用 --- 分隔
+:: 3. 因此，合法的字符为：数字、空格、-和换行符，即^[\\d\\s\\-]+$
+:: 4. 一旦检测到不正确的语法，程序暂停，不会继续运行之后的实例
+set PROBLEM_FILE_PATH=./problems.txt
+:: PUZZLE 有几行，该值的有效性取决于 randGame设置为true
+set ROW_COUNT=3
+:: PUZZLE 有几列，该值的有效性取决于 randGame设置为true
+set COLUMN_COUNT=3
+:: 是否连续运行所有 N-puzzle 实例，实例与实例之间不暂停
+set AUTO_RUN_ALL_INSTANCES=true
+
+java -jar ./target/npuzzle-0.0.1-SNAPSHOT.jar --random%RANDOM_GAME% --round%GAME_ROUND% --problems%PROBLEM_FILE_PATH% --row%ROW_COUNT% --column%COLUMN_COUNT% --auto-run%AUTO_RUN_ALL_INSTANCES%
+```
+
+
 
 # [**What is N-Puzzle?**](https://algorithmsinsight.wordpress.com/graph-theory-2/a-star-in-general/implementing-a-star-to-solve-n-puzzle/)
 
@@ -20,11 +55,13 @@ The puzzle consists of **one empty space** where the tiles can be moved and thus
 
 本质上，我们需要不断地移动唯一的空格，直到其他有数字的拼图满足条件，因此是一个 Single Agent Search 问题
 
+当然，N-puzzle也可以拓展为一个 $M\times N$ 的矩阵，其他条件不变。
+
 # 相关文献
 
 [Single-Agent Search - Sliding Tile Puzzle Domain](https://www.movingai.com/SAS/STP/)
 
-# check solvability
+# Check solvability
 
 - whether a N-puzzle is solvable?
 - https://www.geeksforgeeks.org/check-instance-15-puzzle-solvable/
