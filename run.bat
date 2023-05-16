@@ -10,9 +10,9 @@ set GAME_ROUND=2
 :: 3. 因此，合法的字符为：数字、空格、-和换行符，即^[\\d\\s\\-]+$
 :: 4. 一旦检测到不正确的语法，程序暂停，不会继续运行之后的实例
 set PROBLEM_FILE_PATH=./problems.txt
-:: PUZZLE 有几行，该值的有效性取决于 randGame设置为true
+:: PUZZLE 有几行，该值的有效性取决于 RANDOM_GAME 设置为true
 set ROW_COUNT=3
-:: PUZZLE 有几列，该值的有效性取决于 randGame设置为true
+:: PUZZLE 有几列，该值的有效性取决于 RANDOM_GAME 设置为true
 set COLUMN_COUNT=3
 :: 是否连续运行所有 N-puzzle 实例，实例与实例之间不暂停
 set AUTO_RUN_ALL_INSTANCES=true

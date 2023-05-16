@@ -1,9 +1,9 @@
-# 环境
+# 环境 🧶
 
 - JDK 8
 - Maven 3.8.x
 
-# 使用
+# 使用 🛵
 
 - 使用 Maven 打包：
 
@@ -44,7 +44,7 @@ java -jar ./target/npuzzle-0.0.1-SNAPSHOT.jar --random%RANDOM_GAME% --round%GAME
 
 
 
-# [**What is N-Puzzle?**](https://algorithmsinsight.wordpress.com/graph-theory-2/a-star-in-general/implementing-a-star-to-solve-n-puzzle/)
+# [**What is N-Puzzle?**](https://algorithmsinsight.wordpress.com/graph-theory-2/a-star-in-general/implementing-a-star-to-solve-n-puzzle/) 🧐
 
 N-Puzzle or sliding puzzle is a popular puzzle that consists of N tiles where $\forall k \in \Z, k \ge 2, N = k^2 -1$, e.g. $N = 8,15,24,\cdots$ . 
 
@@ -57,16 +57,16 @@ The puzzle consists of **one empty space** where the tiles can be moved and thus
 
 当然，N-puzzle也可以拓展为一个 $M\times N$ 的矩阵，其他条件不变。
 
-# 相关文献
+# 相关文献 📃
 
 [Single-Agent Search - Sliding Tile Puzzle Domain](https://www.movingai.com/SAS/STP/)
 
-# Check solvability
+# Check solvability ⛏️
 
 - whether a N-puzzle is solvable?
 - https://www.geeksforgeeks.org/check-instance-15-puzzle-solvable/
 
-# 算法
+# 算法 :thinking:
 
 - 这些算法的实现都在`org.example.npuzzle.strategy.impl`下
 
@@ -111,3 +111,10 @@ The puzzle consists of **one empty space** where the tiles can be moved and thus
 > - Completeness : Bidirectional search is complete if BFS is used in both searches.
 > - Optimality : It is optimal if BFS is used for search and paths have uniform cost.
 > - Time and Space Complexity : Time and space complexity is $O(b^{d/2})$. 
+
+
+
+# 代码的创新点 :tada:
+
+1. 对于一个 N-puzzle 实例，使用多线程并行运行每一种算法，有效缩短了运行时间
+2. 提供了命令行工具，同时也提供了脚本
