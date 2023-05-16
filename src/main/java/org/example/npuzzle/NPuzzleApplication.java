@@ -3,11 +3,13 @@ package org.example.npuzzle;
 
 import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
+import org.example.npuzzle.config.NPuzzleConfig;
 import org.example.npuzzle.entity.State;
 import org.example.npuzzle.strategy.NPuzzle;
 import org.example.npuzzle.strategy.impl.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -66,8 +68,32 @@ public class NPuzzleApplication {
         latch = new CountDownLatch(count);
     }
 
+    private static File problems;
+
     private static void parseCommandLineArgs(String[] args) {
+        for (String arg : args) {
+            if (arg.startsWith("--random")) {
+                NPuzzleConfig.RANDOM_GAME = Boolean.parseBoolean(arg.substring("--random".length()));
+            } else if (arg.startsWith("--round")) {
+                NPuzzleConfig.GAME_ROUND = Integer.parseInt(arg.substring("--round".length()));
+            } else if (arg.startsWith("--problems")) {
+                problems = new File(arg.substring("--problems".length()));
+            } else if (arg.startsWith("--row")) {
+                NPuzzleConfig.PUZZLE_ROW_COUNT = Integer.parseInt(arg.substring("--row".length()));
+            } else if (arg.startsWith("--column")) {
+                NPuzzleConfig.PUZZLE_COLUMN_COUNT = Integer.parseInt(arg.substring("--column".length()));
+            }
+        }
+        if (!NPuzzleConfig.RANDOM_GAME) {
+            if (problems == null || !problems.exists() || !problems.isFile()) {
+                throw new RuntimeException("if --random<value> is false, a file of problems must be given");
+            }
+        }
+
+        System.out.println("====================================================");
+        System.out.println("Initial Config Report:");
         // TODO
+        System.out.println("====================================================");
     }
 
     public static void main(String[] args) throws InterruptedException {
