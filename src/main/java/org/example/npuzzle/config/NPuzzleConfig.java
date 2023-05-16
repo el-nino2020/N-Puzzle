@@ -30,6 +30,11 @@ public class NPuzzleConfig {
     public static int PUZZLE_COLUMN_COUNT = 3;
 
     /**
+     * 是否连续运行所有 N-puzzle 实例，实例与实例之间不暂停
+     */
+    public static boolean AUTO_RUN_ALL_INSTANCES = true;
+
+    /**
      * PUZZLE 包含的总<b>有效</b>格子数，该值的有效性取决于 randGame设置为true
      *
      * @see NPuzzleConfig#RANDOM_GAME

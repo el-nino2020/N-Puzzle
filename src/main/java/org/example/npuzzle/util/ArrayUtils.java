@@ -53,4 +53,11 @@ public class ArrayUtils {
         return null;
     }
 
+    public static int[] toIntArray(String line, String regexSeparator) {
+        return Arrays.stream(line.split(regexSeparator))
+                .filter(s -> !("".equals(s)))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+    }
+
 }

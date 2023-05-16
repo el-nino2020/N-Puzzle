@@ -8,10 +8,10 @@ import org.example.npuzzle.util.NPuzzleUtils;
 
 import javax.annotation.Nullable;
 import java.awt.*;
-import java.util.Collections;
-import java.util.HashSet;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -103,8 +103,51 @@ public abstract class NPuzzle {
         System.out.println("Initial State:");
         System.out.print(ArrayUtils.toString(grid));
         System.out.println("Solvable? " + NPuzzleUtils.checkSolvability(grid));
-        System.out.println("Initializing Random Game Done");
         initialState = new State(grid, null, null, point);
+    }
+
+    /**
+     * 从文件中读取，尝试解析一个有效的N-puzzle实例
+     *
+     * @param reader reader of file of problems
+     * @return 如果初始化成功则返回true；如果reader读完了都无法找到一个有效的N-puzzle实例，则返回false
+     */
+    public synchronized static boolean initCustomGame(BufferedReader reader) throws IOException {
+        if (reader == null) return false;
+
+        State.forkedTimes.set(0L);
+        visitedState.set(new HashSet<>());
+
+
+        String line;
+        List<int[]> list = new ArrayList<>();
+
+        while (true) {
+            while (((line = reader.readLine()) != null) && (line.startsWith("---"))) {
+            }
+            if (line == null)
+                return false;
+            try {
+                do {
+                    list.add(ArrayUtils.toIntArray(line, "\\s"));
+                } while (((line = reader.readLine()) != null) && !(line.startsWith("---")));
+            } catch (Exception e) {
+                // 文件格式错误，拒绝服务
+                return false;
+            }
+
+            int[][] grid = list.toArray(new int[list.size()][]);
+
+            if (NPuzzleUtils.checkValidness(grid)) {
+                int[] pos = ArrayUtils.find(grid, 0);
+                System.out.println("Initial State:");
+                System.out.print(ArrayUtils.toString(grid));
+                System.out.println("Solvable? " + NPuzzleUtils.checkSolvability(grid));
+                initialState = new State(grid, null, null, new Point(pos[0], pos[1]));
+                return true;
+            }
+
+        }
     }
 
 }
