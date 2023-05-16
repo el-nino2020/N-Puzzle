@@ -2,7 +2,6 @@ package org.example.npuzzle.strategy.impl;
 
 
 import org.example.npuzzle.entity.AStarState;
-import org.example.npuzzle.entity.State;
 
 import java.util.function.ToIntFunction;
 
@@ -26,8 +25,8 @@ public class LinearConflictWithManhattanAStar extends AStar {
         int conflictCount = 0;
 
         int[][] grid = state.getGrid();
-        int m = State.M;
-        int n = State.N;
+        int m = state.getGrid().length;
+        int n = state.getGrid()[0].length;
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {

@@ -45,7 +45,7 @@ public abstract class AStar extends NPuzzle {
                 int dx = nextDir.dx, dy = nextDir.dy;
 
                 // 下一步在边界范围内
-                if (0 <= dx + x && dx + x < State.M && 0 <= dy + y && dy + y < State.N) {
+                if (0 <= dx + x && dx + x < state.getGrid().length && 0 <= dy + y && dy + y < state.getGrid()[0].length) {
                     AStarState nextState = state.fork();
 
                     nextState.setLastDirection(nextDir);

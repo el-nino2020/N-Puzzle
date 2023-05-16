@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.npuzzle.constants.GlobalConstants;
 import org.example.npuzzle.enums.Direction;
 import org.example.npuzzle.util.ArrayUtils;
 
@@ -21,17 +20,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class State implements GlobalConstants {
-    /**
-     * grid有m行
-     */
-    public static final int M = PUZZLE_ROW_COUNT;
-
-    /**
-     * grid有n列
-     */
-    public static final int N = PUZZLE_COLUMN_COUNT;
-
+public class State {
     /**
      * 记录一共调用过多少次 fork()方法， <br/>
      * 该字段可以用来评定某一种算法的优劣与否 <br/>

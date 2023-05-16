@@ -3,17 +3,18 @@ package org.example.npuzzle;
 
 import com.google.common.collect.ImmutableList;
 import lombok.AllArgsConstructor;
-import org.example.npuzzle.constants.GlobalConstants;
 import org.example.npuzzle.entity.State;
 import org.example.npuzzle.strategy.NPuzzle;
 import org.example.npuzzle.strategy.impl.*;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class NPuzzleApplication implements GlobalConstants {
+@SpringBootApplication
+public class NPuzzleApplication {
 
     /**
      * 运行一个算法，并输出统计信息
@@ -61,8 +62,12 @@ public class NPuzzleApplication implements GlobalConstants {
     // 用于阻塞主线程shutdown线程池的操作
     private static CountDownLatch latch;
 
-    public static void initLatch(int count) {
+    private static void initLatch(int count) {
         latch = new CountDownLatch(count);
+    }
+
+    private static void parseCommandLineArgs(String[] args) {
+        // TODO
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -78,6 +83,8 @@ public class NPuzzleApplication implements GlobalConstants {
 
 
         // 初始化
+        parseCommandLineArgs(args);
+
         NPuzzle.initRandomGame();
         initLatch(algorithms.size());
         // 让每个算法都在一个独立的线程中运行，用于统一运行、比较

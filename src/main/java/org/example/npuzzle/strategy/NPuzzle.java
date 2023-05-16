@@ -1,7 +1,7 @@
 package org.example.npuzzle.strategy;
 
 
-import org.example.npuzzle.constants.GlobalConstants;
+import org.example.npuzzle.config.NPuzzleConfig;
 import org.example.npuzzle.entity.State;
 import org.example.npuzzle.util.ArrayUtils;
 import org.example.npuzzle.util.NPuzzleUtils;
@@ -22,7 +22,7 @@ import static org.example.npuzzle.util.RandomUtils.currentTimeRandom;
  *
  * @see org.example.npuzzle.strategy.impl
  */
-public abstract class NPuzzle implements GlobalConstants {
+public abstract class NPuzzle {
 
     private static volatile State initialState;
 
@@ -81,14 +81,14 @@ public abstract class NPuzzle implements GlobalConstants {
         State.forkedTimes.set(0L);
         visitedState.set(new HashSet<>());
 
-        int m = PUZZLE_ROW_COUNT, n = PUZZLE_COLUMN_COUNT;
+        int m = NPuzzleConfig.PUZZLE_ROW_COUNT, n = NPuzzleConfig.PUZZLE_COLUMN_COUNT;
 
         int[][] grid = new int[m][n];
 
         Point point = new Point(currentTimeRandom().nextInt(m),
                 currentTimeRandom().nextInt(n));
 
-        List<Integer> list = IntStream.rangeClosed(1, PUZZLE_SIZE).boxed().collect(Collectors.toList());
+        List<Integer> list = IntStream.rangeClosed(1, NPuzzleConfig.PUZZLE_SIZE).boxed().collect(Collectors.toList());
         Collections.shuffle(list, currentTimeRandom());
 
         for (int i = 0, k = 0; i < m; i++) {
