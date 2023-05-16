@@ -4,6 +4,7 @@ package org.example.npuzzle.strategy;
 import org.example.npuzzle.constants.GlobalConstants;
 import org.example.npuzzle.entity.State;
 import org.example.npuzzle.util.ArrayUtils;
+import org.example.npuzzle.util.NPuzzleUtils;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -101,7 +102,8 @@ public abstract class NPuzzle implements GlobalConstants {
 
         System.out.println("Initial State:");
         System.out.print(ArrayUtils.toString(grid));
-
+        System.out.println("Solvable? " + NPuzzleUtils.checkSolvability(grid));
+        System.out.println("Initializing Random Game Done");
         initialState = new State(grid, null, null, point);
     }
 

@@ -38,5 +38,19 @@ public class ArrayUtils {
         arr[x2][y2] = temp;
     }
 
+    /**
+     * find the first-appeared position of val in arr
+     *
+     * @return [x, y] or null if val does not exist in arr
+     */
+    public static int[] find(int[][] arr, int val) {
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                if (arr[i][j] == val)
+                    return new int[]{i, j};
+            }
+        }
+        return null;
+    }
 
 }
