@@ -8,7 +8,7 @@
 - 使用 Maven 打包：
 
 - ```sh
-    mvn clean package
+    mvn -DskipTests=true clean package
     ```
 
 - 运行（Windows CMD 脚本）：
