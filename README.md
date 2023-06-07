@@ -45,8 +45,10 @@ ROW_COUNT=3
 COLUMN_COUNT=3
 # 是否连续运行所有 N-puzzle 实例，实例与实例之间不暂停
 AUTO_RUN_ALL_INSTANCES=true
+# 是否打印每个算法得出的 solution path
+PRINT_SOLUTION_PATH=false
 
-java -jar ./target/npuzzle-0.0.1-SNAPSHOT.jar --random$RANDOM_GAME --round$GAME_ROUND --problems$PROBLEM_FILE_PATH --row$ROW_COUNT --column$COLUMN_COUNT --auto-run$AUTO_RUN_ALL_INSTANCES
+java -jar ./target/npuzzle-0.0.1-SNAPSHOT.jar --random$RANDOM_GAME --round$GAME_ROUND --problems$PROBLEM_FILE_PATH --row$ROW_COUNT --column$COLUMN_COUNT --auto-run$AUTO_RUN_ALL_INSTANCES --print-sol$PRINT_SOLUTION_PATH
 ```
 
 

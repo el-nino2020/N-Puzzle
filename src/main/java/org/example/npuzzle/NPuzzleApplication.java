@@ -9,12 +9,18 @@ import org.example.npuzzle.strategy.NPuzzle;
 import org.example.npuzzle.strategy.impl.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.*;
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @SpringBootApplication
 public class NPuzzleApplication {
@@ -54,9 +60,9 @@ public class NPuzzleApplication {
                     System.out.println("Total State checked: " + NPuzzle.stateCount());
                     // 不一定有解
                     if (endState != null) {
-                        // path 可能非常长，不适合全部打印出来
-//                        System.out.println("Solution: " + endState.tracePath());
                         System.out.println("Solution Size: " + endState.tracePath().size());
+                        if (NPuzzleConfig.PRINT_SOLUTION_PATH)
+                            System.out.println("Solution: " + endState.tracePath());
 //                        System.out.println("End State (just for check): ");
 //                        System.out.println(ArrayUtils.toString(endState.getGrid()));
                     } else {
@@ -108,6 +114,8 @@ public class NPuzzleApplication {
                     NPuzzleConfig.PUZZLE_COLUMN_COUNT = Integer.parseInt(arg.substring("--column".length()));
                 } else if (arg.startsWith("--auto-run")) {
                     NPuzzleConfig.AUTO_RUN_ALL_INSTANCES = Boolean.parseBoolean(arg.substring("--auto-run".length()));
+                } else if (arg.startsWith("--print-sol")) {
+                    NPuzzleConfig.PRINT_SOLUTION_PATH = Boolean.parseBoolean(arg.substring("--print-sol".length()));
                 }
             }
         } catch (Exception e) {
