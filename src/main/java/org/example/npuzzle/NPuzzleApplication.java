@@ -136,7 +136,7 @@ public class NPuzzleApplication {
         System.out.println("Random Game? " + NPuzzleConfig.RANDOM_GAME);
         if (NPuzzleConfig.RANDOM_GAME) {
             System.out.println("Game Rounds: " + NPuzzleConfig.GAME_ROUND);
-            System.out.format("Problem size: %d × %d\n", NPuzzleConfig.PUZZLE_ROW_COUNT, NPuzzleConfig.PUZZLE_COLUMN_COUNT);
+            System.out.format("Problem size: %d * %d\n", NPuzzleConfig.PUZZLE_ROW_COUNT, NPuzzleConfig.PUZZLE_COLUMN_COUNT);
         }
         System.out.println("====================================================");
 

@@ -1,6 +1,7 @@
+@echo off
 :: 参数设置 ::
 :: 是否随机初始化N-puzzle实例
-set RANDOM_GAME=true
+set RANDOM_GAME=false
 :: 程序一次运行多少次N-puzzle实例，该值的有效性取决于 RANDOM_GAME 设置为true
 set GAME_ROUND=2
 :: 如果 RANDOM_GAME 设置为 false, 则必须提供自定义的 N-puzzle 实例文件的路径（相对或绝对）
